@@ -1,6 +1,19 @@
 package com.example.order_service.dto;
 
-//i want to learn more about the Dto , like in detail i want to know it is used for managing the data
-public class ordersRequestDto {
+import com.example.order_service.entity.OrderStatus;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+//i want to learn more about the Dto , like in detail i want to know it is used for managing the data
+@Entity
+@Getter
+@Setter
+public class ordersRequestDto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    private long id;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+    private double price;
 }
