@@ -1,9 +1,6 @@
 package com.example.order_service.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,4 +13,7 @@ public class OrderItems {
     private long id;
     private long productId;
     private Integer quantity;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Orders orders;
 }

@@ -1,0 +1,47 @@
+-- CONFIRMED , PENDING , CANCELLEED ,DELIVERED
+INSERT INTO orders (order_status, price) VALUES
+('PENDING', 1299.00),
+('PENDING', 2450.50),
+('CONFIRMED', 780.00),
+('DELIVERED', 1500.00),
+('DELIVERED', 3200.75),
+('CANCELLEED', 450.00),
+('CONFIRMED', 1999.90),
+('PENDING', 540.20),
+('DELIVERED', 999.99),
+('CONFIRMED', 2780.40),
+('CANCELLEED', 300.00),
+('PENDING', 1650.00),
+('CONFIRMED', 890.75),
+('DELIVERED', 4200.00),
+('PENDING', 700.00),
+('CANCELLEED', 1200.50),
+('DELIVERED', 2300.30),
+('CONFIRMED', 3100.10),
+('PENDING', 1800.00),
+('DELIVERED', 510.45);
+
+
+
+INSERT INTO order_items (order_id, product_id, quantity)
+VALUES
+(1, 101, 2),
+(1, 102, 1),
+(2, 103, 3),
+(2, 104, 1),
+(3, 105, 2),
+(3, 106, 4),
+(4, 107, 1),
+(4, 108, 2),
+(5, 109, 3),
+(5, 110, 1),
+(6, 101, 2),
+(6, 103, 1),
+(7, 104, 5),
+(7, 105, 1),
+(8, 106, 3),
+(8, 107, 2),
+(9, 108, 1),
+(9, 109, 4),
+(10, 110, 2),
+(10, 103, 1);

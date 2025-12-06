@@ -9,7 +9,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class ordersRequestDto {
+public class OrdersRequestDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private long id;
