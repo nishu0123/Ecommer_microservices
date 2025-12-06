@@ -13,6 +13,7 @@
     <modules>
         <module>inventry-services</module>
         <module>order-service</module>
+        <module>discovery-service</module>
         <!-- add new microservices here -->
     </modules>
 
