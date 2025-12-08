@@ -1,0 +1,29 @@
+spring:
+  application:
+  name: api-gateway
+  #spring gateway config
+  cloud:
+    gateway:
+      routes:
+        - id: inventory-services
+          uri: lb://INVENTORY-SERVICE
+          predicates:
+            - path=/api/v1/inventory**
+          filters:
+            - stripePrefix = 2 #it will not forward two prefix in routing - so path will be /inventory
+
+
+        - id: order-service
+          uri: lb://ORDER-SERVICE
+          predicates:
+            - path=/ap1/v1/Orders**
+          filters:
+            - stripePrefix = 2 #it will not forward two prefix in routing - so path will be /Orders
+            - AddRequestHeader = x-custom-header , nishant
+
+
+  eureka:
+    client:
+      service-url:
+        defaultZone : https//localhost:8761/eureka
+
