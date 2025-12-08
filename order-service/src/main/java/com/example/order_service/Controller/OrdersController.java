@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/core")
 public class OrdersController {
     @Autowired
     private OrderService orderService;
@@ -37,12 +39,28 @@ public class OrdersController {
         return ResponseEntity.ok(orderItemRequestDtoList);
     }
 
+    @GetMapping("/helloOrder")
+    public String helloOrder()
+    {
+        return "hello order from order services";
+    }
+
+
     @GetMapping("orders/id")
     ResponseEntity<OrdersRequestDto> getOrderById(@PathVariable long id)
     {
         OrdersRequestDto ordersRequestDto = orderService.getOrderById(id);
         return ResponseEntity.ok(ordersRequestDto);
     }
+
+
+    //below gate mapping is working
+    @GetMapping("/")
+    public  String greetFromOrderService()
+    {
+        return "welcome to the home page of the order services ";
+    }
+
 
 
 
