@@ -1,5 +1,6 @@
 package com.Ecommerce.inventry_services.controller;
 
+import com.Ecommerce.inventry_services.clients.OrdersFeignClients;
 import com.Ecommerce.inventry_services.dto.productDto;
 import com.Ecommerce.inventry_services.entity.product;
 import com.Ecommerce.inventry_services.services.productService;
@@ -10,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +33,9 @@ public class productController {
     private final ModelMapper modelmapper;
     private final DiscoveryClient discoveryClient;
     private final RestClient restClient;
+    private final OrdersFeignClients ordersFeignClients;
 
+    /// allOrders is working
     @GetMapping("/allOrders")
     public ResponseEntity<List<productDto>> getAllInventry()
     {
@@ -39,6 +43,7 @@ public class productController {
         return ResponseEntity.ok(productDtoList);
     }
 
+    //{id} is also working
     @GetMapping("/{id}")
     public ResponseEntity<productDto> getProductById(@PathVariable long id)
     {
@@ -49,30 +54,36 @@ public class productController {
 //        return productDtoval;
     }
 
+    //fetchOrders is not working
     @GetMapping("/fetchOrders")
     public String fetchFromOrderService()
     {
-        ServiceInstance orderService = discoveryClient.getInstances("order-service").getFirst();
-        String response = restClient.get()
-                .uri(orderService.getUri() + "/api/v1/Orders.core/helloOrder")
-                .retrieve()
-                .body(String.class);
 
-//        System.print.out(response);
-
-        return response;
+//        ServiceInstance orderService = discoveryClient.getInstances("order-service").getFirst();
+//        String response = restClient.get()
+//                .uri(orderService.getUri() + "/api/v1/Orders.core/helloOrder")
+//                .retrieve()
+//                .body(String.class);
+//
+////        System.print.out(response);
+//
+//        return response;
 
         //here i will use getmappping from inventory and
         //then  i will get from order service
 
+        //using feign client
+        return ordersFeignClients.getHelloOrders();
+
     }
+    //home page is working
     @GetMapping("/")
     public String grettingOnInverntryService()
     {
-        return "welcome to the home page of inventory services";
+        return "welcome to the home page of inventory service";
     }
 
-    
+
 
 }
 //notebookLLM - upload pdf and get the report ( we can also convert it to podcast or video)

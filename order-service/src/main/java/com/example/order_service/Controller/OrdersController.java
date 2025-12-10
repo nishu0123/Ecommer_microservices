@@ -32,6 +32,7 @@ public class OrdersController {
 //        return orderItems;
 //    }
 
+    /// orders is working
     @GetMapping("/orders")
     ResponseEntity<List<OrderItemRequestDto>> getOrder(HttpServletRequest request)
     {
@@ -39,6 +40,7 @@ public class OrdersController {
         return ResponseEntity.ok(orderItemRequestDtoList);
     }
 
+    //helloOrder is also working
     @GetMapping("/helloOrder")
     public String helloOrder()
     {
