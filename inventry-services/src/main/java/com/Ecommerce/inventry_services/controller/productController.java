@@ -1,6 +1,8 @@
 package com.Ecommerce.inventry_services.controller;
 
 import com.Ecommerce.inventry_services.clients.OrdersFeignClients;
+import com.Ecommerce.inventry_services.dto.OrderItemRequestDto;
+import com.Ecommerce.inventry_services.dto.OrdersRequestDto;
 import com.Ecommerce.inventry_services.dto.productDto;
 import com.Ecommerce.inventry_services.entity.product;
 import com.Ecommerce.inventry_services.services.productService;
@@ -13,14 +15,13 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.service.annotation.GetExchange;
 
 import java.util.List;
+
+import static java.rmi.server.LogStream.log;
 
 @RestController
 @Slf4j
@@ -54,7 +55,7 @@ public class productController {
 //        return productDtoval;
     }
 
-    //fetchOrders is not working
+    //fetchOrders is now working
     @GetMapping("/fetchOrders")
     public String fetchFromOrderService()
     {
@@ -82,6 +83,55 @@ public class productController {
     {
         return "welcome to the home page of inventory service";
     }
+
+    @PostMapping("/reduce-stock")
+    ResponseEntity<Double> ReduceStock(@RequestBody OrdersRequestDto  ordersRequestDto)
+    {
+        log("reducing stock ..." + "orderRequestDto = " + ordersRequestDto);
+        double totalPrice  = productService.reduceStock(ordersRequestDto);
+        return ResponseEntity.ok(totalPrice);
+        //here api call will be OrderRequestDto not OrderItemRequestDto
+        //so loop through all the item
+//        for(OrderItemRequestDto item : OrdersRequestDto)
+//        {
+//            productDto AvailableStock =productService.getProductById(item.getProductId());
+//
+//            //now fetch the required details about the product
+//            int quantity = AvailableStock.getStock();
+//            double price = AvailableStock.getPrice();
+//
+//            if(quantity <= item.getQuantity())
+//            {
+//
+//            }
+//        }
+//        productDto AvailableStock = productService.getProductById(orderItemRequestDto.getProductId());
+
+        //All the database operation will be done in the repository
+
+//        if(AvailableStock.getStock() < orderItemRequestDto.getQuantity())
+//        {
+//            return ResponseEntity.unprocessableEntity().body(-1.0);
+//        }else{
+//            //reduce stock from the database and save the updated value to the database
+//            productDto updatedStock = productService.reduceStock(orderItemRequestDto);//this function will reduce the stock
+//            return ResponseEntity.unprocessableEntity().body(-1.0);
+//        }
+
+//        return ResponseEntity.ok(finalStock);
+
+
+    }
+
+    @PutMapping("/add-stock")
+    ResponseEntity<Double> AddStock(@RequestBody OrderItemRequestDto orderItemRequestDto)
+    {
+        //this function has not been implemented
+        double finalStock = 2;
+        return ResponseEntity.ok(finalStock);
+    }
+
+
 
 
 
