@@ -46,9 +46,9 @@ public class OrdersController {
 
     //helloOrder is also working
     @GetMapping("/helloOrder")
-    public String helloOrder()
+    public String helloOrder(@RequestHeader("X-User-Id") Long userId)
     {
-        return "hello order from order services";
+        return "hello order from order services user id is : " + userId;
     }
 
 
