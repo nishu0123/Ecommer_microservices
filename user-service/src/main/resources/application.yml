@@ -1,6 +1,6 @@
 spring:
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: localhost:9093
 
 kafka:
   topic:
@@ -8,8 +8,13 @@ kafka:
     user-created-topic: user-created-topic
 
     producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      producer:
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+        properties:
+          schema.registry.url: http://localhost:8081
+      acks: all
+      retries: 3 #if a message is not consumed by the consumer then producer will product max 3 times
 
       properties:
         spring.json.add.type.headers: false   # optional but recommended
