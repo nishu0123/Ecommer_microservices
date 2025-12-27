@@ -39,8 +39,8 @@ spring:
                 - AddRequestHeader=x-custom-header,Nishant
                 - name: Authentication
                   args:
-                    isAuthenticationEnabled: true #passing the arguement to the config
-                    isAuthorizationEnabled: true #passing the arguement to the config
+                    isAuthenticationEnabled: true #passing the argument to the config
+                    isAuthorizationEnabled: true #passing the argument to the config
 #                - name: Authorization
 #                  args:
 #                    allowedRoles: ADMIN , SUPER_ADMIN
@@ -48,6 +48,11 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+
+
+
+server:
+  port: 8081
 
 
 
